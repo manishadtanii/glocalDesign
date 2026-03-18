@@ -9,67 +9,67 @@ import React, { useState } from 'react';
 const STYLES = [
   {
     name: 'Mid Century Modern',
-    image: '/public/design/midcentury.webp',
+    image: '/design/midcentury.webp',
     desc: 'Clean lines, organic curves',
   },
   {
     name: 'Industrial',
-    image: '/public/design/industrial.webp',
+    image: '/design/Industrial.webp',
     desc: 'Raw materials, open spaces',
   },
   {
     name: 'Bohemian',
-    image: '/public/design/bohimian.webp',
+    image: '/design/bohimian.webp',
     desc: 'Eclectic, artistic, free-spirited',
   },
   {
     name: 'Rustic',
-    image: '/public/design/Rustic.webp',
+    image: '/design/Rustic.webp',
     desc: 'Natural wood, warm tones',
   },
   {
     name: 'Coastal',
-    image: '/public/design/coastal.webp',
+    image: '/design/coastal.webp',
     desc: 'Breezy, light & ocean-inspired',
   },
   {
     name: 'Electic',
-    image: '/public/design/electic.webp',
+    image: '/design/electic.webp',
     desc: 'Bold mix of styles & eras',
   },
   {
     name: 'Transitional',
-    image: '/public/design/transitional.webp',
+    image: '/design/transitional.webp',
     desc: 'Classic meets contemporary',
   },
   {
     name: 'Art Deco',
-    image: '/public/design/artdeco.webp',
+    image: '/design/artdeco.webp',
     desc: 'Glamour, geometry & gold',
   },
   {
     name: 'Hollywood Regency',
-    image: '/public/design/HollywoodRegency.webp',
+    image: '/design/HollywoodRegency.webp',
     desc: 'Opulent, dramatic luxury',
   },
   {
     name: 'Japandi',
-    image: '/public/design/japandi.webp',
+    image: '/design/Japandi.webp',
     desc: 'Japanese-Scandi minimalism',
   },
   {
     name: 'Maximalist',
-    image: '/public/design/Maximalist.webp',
+    image: '/design/Maximalist.webp',
     desc: 'More is more — bold & layered',
   },
   {
     name: 'Mediterranean',
-    image: '/public/design/Meditarrarian.webp',
+    image: '/design/Meditarrarian.webp',
     desc: 'Warm terracotta & relaxed luxury',
   },
   {
     name: 'Traditional',
-    image: '/public/design/Traditional.webp',
+    image: '/design/Traditional.webp',
     desc: 'Timeless elegance & symmetry',
   },
 

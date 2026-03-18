@@ -39,12 +39,12 @@ const ServicesSection = () => {
     if (!containerRef.current) return;
 
     const cards = gsap.utils.toArray('.service-card');
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: triggerRef.current,
         start: 'top top',
-        end: `+=${cards.length * 150}%`, // Longer scroll for effortless smoothness
+        end: `+=${cards.length * 40}%`, // Reduced for a "1 scroll" feel
         pin: true,
         scrub: 1.8, // More inertia for liquid feel
       }
@@ -53,23 +53,23 @@ const ServicesSection = () => {
     cards.forEach((card, i) => {
       // Setup initial states
       if (i > 0) {
-        gsap.set(card, { y: '110%', opacity: 0 }); 
+        gsap.set(card, { y: '110%', opacity: 0 });
       }
 
       // 1. Sliding logic for COMPLETE overlap
       if (i > 0) {
         tl.to(card, {
-          y: '0%', 
+          y: '0%',
           opacity: 1,
           duration: 2,
           ease: 'power3.inOut',
-        }, i * 2); 
+        }, i * 2);
 
         // 2. Depth effect: Scale down the previous card
         const prevCard = cards[i - 1];
         tl.to(prevCard, {
           scale: 0.9,
-          opacity: 0, 
+          opacity: 0,
           filter: 'blur(15px)',
           duration: 2,
           ease: 'power3.inOut',
@@ -98,10 +98,10 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section 
-      ref={triggerRef} 
-      style={{ 
-        overflow: 'hidden', 
+    <section
+      ref={triggerRef}
+      style={{
+        overflow: 'hidden',
         backgroundColor: '#FAF8F5',
         paddingBottom: '10rem' // Added space after section finishes
       }}
@@ -110,21 +110,21 @@ const ServicesSection = () => {
         ref={containerRef}
         style={{
           width: '100%',
-          height: '100vh', 
+          height: '100vh',
           position: 'relative',
           zIndex: 10,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center', 
-          padding: '0 2rem', 
+          justifyContent: 'center',
+          padding: '0 2rem',
         }}
       >
         {/* ── Cards Stack Container ── */}
         <div style={{
           position: 'relative',
           width: '100%',
-          maxWidth: '1600px', 
+          maxWidth: '1600px',
           height: '80vh', // Fixed height to prevent cutting off
           display: 'flex',
           alignItems: 'center',
@@ -147,7 +147,7 @@ const ServicesSection = () => {
                 display: 'flex',
                 alignItems: 'center',
                 // boxShadow: '0 60px 140px rgba(0,0,0,0.2)',
-                zIndex: idx, 
+                zIndex: idx,
                 willChange: 'transform, opacity, filter',
               }}
             >
