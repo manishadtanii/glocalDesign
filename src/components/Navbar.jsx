@@ -342,28 +342,28 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
-  const [isOpen, setIsOpen]       = useState(false);
-  const menuRef                   = useRef(null);
-  const linksRef                  = useRef([]);
-  const navRef                    = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+  const linksRef = useRef([]);
+  const navRef = useRef(null);
 
   // ── Fix 1: Scroll state (for frosted bg) ──
-  const [scrolled, setScrolled]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // ── Hide/Show: direction tracking ──
   const [navVisible, setNavVisible] = useState(true);
-  const lastScrollY                 = useRef(0);
-  const ticking                     = useRef(false);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
   // ── Fix 3: Per-section logo theme ──
   const [logoTheme, setLogoTheme] = useState('dark');
 
   const navLinks = [
-    { name: 'PROJECTS',  href: '#projects' },
-    { name: 'SERVICES',  href: '#services' },
-    { name: 'STYLING',   href: '#styling'  },
-    { name: 'OUR STORY', href: '#story'    },
-    { name: 'CONTACT',   href: '#contact'  },
+    { name: 'PROJECTS', href: '#projects' },
+    { name: 'SERVICES', href: '#services' },
+    { name: 'STYLING', href: '#styling' },
+    { name: 'OUR STORY', href: '#story' },
+    { name: 'CONTACT', href: '#contact' },
   ];
 
   // ── Scroll direction + frosted bg listener ──
@@ -433,11 +433,11 @@ const Navbar = () => {
     // logoColor: 'dark'  → original    (white / light bg sections)
     //
     const sections = [
-      { selector: '.hero-section',          logoColor: 'dark'  },
-      { selector: '.portfolio-section',     logoColor: 'dark'  },
-      { selector: '.about-section',         logoColor: 'dark'  },
+      { selector: '.hero-section', logoColor: 'dark' },
+      { selector: '.portfolio-section', logoColor: 'dark' },
+      { selector: '.about-section', logoColor: 'dark' },
       { selector: '.design-styles-section', logoColor: 'light' }, // red bg
-      { selector: '.contact-form-section',  logoColor: 'light' }, // red bg
+      { selector: '.contact-form-section', logoColor: 'light' }, // red bg
     ];
 
     const triggers = [];
@@ -447,11 +447,11 @@ const Navbar = () => {
 
       const trigger = ScrollTrigger.create({
         trigger: selector,
-        start:       'top 60px',
-        end:         'bottom 60px',
-        onEnter:     () => setLogoTheme(logoColor),
+        start: 'top 60px',
+        end: 'bottom 60px',
+        onEnter: () => setLogoTheme(logoColor),
         onEnterBack: () => setLogoTheme(logoColor),
-        onLeave:     () => setLogoTheme('dark'),
+        onLeave: () => setLogoTheme('dark'),
         onLeaveBack: () => setLogoTheme('dark'),
       });
 
@@ -497,9 +497,9 @@ const Navbar = () => {
 
   // ── Logo filter (priority: menu open > section light > scrolled > default) ──
   const logoFilter = (() => {
-    if (isOpen)                return 'brightness(0) invert(1)'; // white on crimson
+    if (isOpen) return 'brightness(0) invert(1)'; // white on crimson
     if (logoTheme === 'light') return 'brightness(0) invert(1)'; // white on red section
-    if (scrolled)              return 'brightness(0) invert(1)'; // white on frosted dark bg
+    if (scrolled) return 'brightness(0) invert(1)'; // white on frosted dark bg
     return 'none';                                                // original dark logo
   })();
 
@@ -525,7 +525,7 @@ const Navbar = () => {
           background: scrolled && !isOpen
             ? 'rgba(10, 10, 10, 0.55)'
             : 'transparent',
-          backdropFilter:       scrolled && !isOpen ? 'blur(14px)' : 'none',
+          backdropFilter: scrolled && !isOpen ? 'blur(14px)' : 'none',
           WebkitBackdropFilter: scrolled && !isOpen ? 'blur(14px)' : 'none',
           transition: 'background 0.5s ease, backdrop-filter 0.5s ease',
           // Note: translateY is handled by GSAP, not CSS transition
@@ -546,33 +546,55 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Magnetic Menu / Close Button */}
+        {/* Menu / Close Button */}
         <div style={{ pointerEvents: 'auto' }}>
-          <MagneticButton>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              backgroundColor: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '10px',
+              position: 'relative',
+            }}
+          >
+            {/* Three-line Hamburger Icon */}
+            <div 
               style={{
-                width: '70px',
-                height: '70px',
-                borderRadius: '50%',
-                backgroundColor: isOpen ? '#ffffff' : '#111111',
-                color:           isOpen ? '#111111' : '#ffffff',
-                border: 'none',
-                cursor: 'pointer',
-                fontFamily: "'Afacad', sans-serif",
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                letterSpacing: '0.05em',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'background-color 0.4s ease, color 0.4s ease',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                width: '24px',
+                height: '2px',
+                backgroundColor: isOpen || logoTheme === 'light' || scrolled ? '#ffffff' : '#111111',
+                transition: 'transform 0.4s ease, background-color 0.4s ease',
+                transform: isOpen ? 'translateY(8px) rotate(45deg)' : 'none',
               }}
-            >
-              {isOpen ? 'CLOSE' : 'MENU'}
-            </button>
-          </MagneticButton>
+            />
+            <div 
+              style={{
+                width: '24px',
+                height: '2px',
+                backgroundColor: isOpen || logoTheme === 'light' || scrolled ? '#ffffff' : '#111111',
+                transition: 'opacity 0.4s ease, background-color 0.4s ease',
+                opacity: isOpen ? 0 : 1,
+              }}
+            />
+            <div 
+              style={{
+                width: '24px',
+                height: '2px',
+                backgroundColor: isOpen || logoTheme === 'light' || scrolled ? '#ffffff' : '#111111',
+                transition: 'transform 0.4s ease, background-color 0.4s ease',
+                transform: isOpen ? 'translateY(-8px) rotate(-45deg)' : 'none',
+              }}
+            />
+          </button>
         </div>
       </nav>
 

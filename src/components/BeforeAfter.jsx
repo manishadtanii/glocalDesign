@@ -12,16 +12,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 const BeforeAfter = ({
   beforeImage = '/images/Modern.png',
-  afterImage  = '/images/Modern 1.png',
+  afterImage = '/images/Modern 1.png',
   beforeLabel = 'Before',
-  afterLabel  = 'After',
+  afterLabel = 'After',
 }) => {
-  const sectionRef  = useRef(null);
+  const sectionRef = useRef(null);
   const afterDivRef = useRef(null);
   const afterImgRef = useRef(null);
 
   useEffect(() => {
-    const section  = sectionRef.current;
+    const section = sectionRef.current;
     const afterDiv = afterDivRef.current;
     const afterImg = afterImgRef.current;
     if (!section || !afterDiv || !afterImg) return;

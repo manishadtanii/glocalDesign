@@ -7,10 +7,12 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import HeroHeading from '../components/HeroHeading';
 import HeroQuotes from '../components/HeroQuotes';
+// import ImageRevealStack from '../components/ImageRevealStack';
 import ScrollAnimationCanvas from '../components/ScrollAnimationCanvas';
 import AboutUs from '../components/AboutUs';
 import BeforeAfter from '../components/BeforeAfter';
 import DesignStyles from '../components/DesignStyles';
+// import FeaturedProjects from '../components/FeaturedProjects';
 import ProjectsCarousel from '../components/ProjectsCarousel';
 import ServicesSection from '../components/ServicesSection';
 import SectionHeader from '../components/SectionHeader';
@@ -30,6 +32,8 @@ const Home = () => {
       <HeroHeading />
       <HeroQuotes />
 
+      {/* Image Reveal Stack Section */}
+
       {/* 350vh scroll trigger area — provides enough space for the 400 frames to animate at a good pace */}
       <div className="h-[350vh]" />
 
@@ -38,6 +42,7 @@ const Home = () => {
         <AboutUs />
       </div>
 
+      {/* <ImageRevealStack /> */}
       {/* Before / After scroll comparison */}
       <BeforeAfter />
 
@@ -45,6 +50,8 @@ const Home = () => {
       <DesignStyles />
       <SectionHeader />
       <ServicesSection />
+      {/* Antigravity Featured Projects Grid */}
+      {/* <FeaturedProjects /> */}
       {/* Projects drag carousel */}
       <ProjectsCarousel />
 
