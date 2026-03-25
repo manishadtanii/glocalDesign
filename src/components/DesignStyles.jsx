@@ -4,7 +4,7 @@
  * Thin vertical text collapses, wide image + label expands on hover
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const STYLES = [
   {
@@ -80,7 +80,11 @@ const DesignStyles = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   React.useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setHovered(mobile ? 3 : null); // open 4th style on mobile
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);

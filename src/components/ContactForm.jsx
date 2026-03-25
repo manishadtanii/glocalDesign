@@ -5,7 +5,7 @@
  * Scroll 60vh-100vh: The line expands horizontally with a curvy (ellipse) clip-path, smoothing out into the full rectangular form.
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -15,6 +15,14 @@ const ContactForm = () => {
   const sectionRef = useRef(null);
   const formBoxRef = useRef(null);
   const labelRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateMobile = () => setIsMobile(window.innerWidth < 768);
+    updateMobile();
+    window.addEventListener('resize', updateMobile);
+    return () => window.removeEventListener('resize', updateMobile);
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current || !formBoxRef.current) return;
@@ -147,7 +155,7 @@ const ContactForm = () => {
           style={{
             fontFamily: "'Lacroom', serif",
             fontWeight: 400,
-            fontSize: 'clamp(2.5rem, 4vw, 3rem)',
+            fontSize: isMobile ? 'clamp(1.8rem, 5vw, 2.3rem)' : 'clamp(2.5rem, 4vw, 3rem)',
             color: '#2b2b2b',
             lineHeight: 1.1,
             textAlign: 'center',

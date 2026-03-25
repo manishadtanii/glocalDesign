@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -6,6 +6,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SectionHeader = ({ subtitle, title, titleAccent }) => {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Helper to split text into letter spans without changing layout
   const splitLetters = (text) => {
@@ -86,7 +94,7 @@ const SectionHeader = ({ subtitle, title, titleAccent }) => {
       <h2 style={{
         fontFamily: "'Lacroom', serif",
         fontWeight: 400,
-        fontSize: 'clamp(2.5rem, 6vw, 4.2rem)',
+        fontSize: isMobile ? 'clamp(1.8rem, 6vw, 2.5rem)' : 'clamp(2.5rem, 6vw, 4.2rem)',
         color: '#2b2b2b',
         lineHeight: 1.05,
       }}>

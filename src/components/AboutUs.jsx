@@ -4,7 +4,7 @@
  * Animations only - Preserving all original user styles
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,6 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutUs = () => {
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateMobile = () => setIsMobile(window.innerWidth < 768);
+    updateMobile();
+    window.addEventListener('resize', updateMobile);
+    return () => window.removeEventListener('resize', updateMobile);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,8 +55,13 @@ const AboutUs = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 w-full h-[100vh] flex items-center justify-center"
-      style={{ backgroundColor: '#FAF8F5' }}
+      className="relative z-10 w-full flex items-center justify-center"
+      style={{
+        backgroundColor: '#FAF8F5',
+        minHeight: isMobile ? 'auto' : '100vh',
+        paddingTop: isMobile ? '2rem' : '4rem',
+        paddingBottom: isMobile ? '2rem' : '4rem',
+      }}
     >
       <div 
         ref={containerRef}
