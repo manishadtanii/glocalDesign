@@ -18,7 +18,7 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
     if (!canvasRef.current || !framePreloader) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false });
 
     // Draw frame function with caching to avoid re-drawing same frame
     const drawFrame = (frameIndex) => {
@@ -56,9 +56,9 @@ export const useScrollAnimation = (canvasRef, framePreloader, totalFrames = 361)
     scrollTriggerRef.current = ScrollTrigger.create({
       trigger: document.body,
       start: "top top",
-      // End matches the spacer div's height in Home.jsx
-      end: () => `${2.7 * window.innerHeight} top`, 
-      scrub: 1.5, // No scrub delay - instant response to mouse/touchpad scroll
+      endTrigger: "#about-us", // Use About Us as the end reference
+      end: "top bottom", // Finish animation exactly when About Us touches the bottom of the screen 
+      scrub: 0.5, // Reduced scrub delay for better responsiveness
       fastScrollEnd: true, // Improve performance on fast scroll
       onUpdate: (self) => {
         const frameIndex = self.progress * (totalFrames - 1);

@@ -45,7 +45,7 @@ const ScrollAnimationCanvas = ({ totalFrames = 377 }) => {
       <canvas
         ref={canvasRef}
         className="fixed top-0 left-0 w-full h-screen z-0"
-        style={{ display: 'block' }}
+        style={{ display: 'block', transform: 'translateZ(0)', willChange: 'transform' }}
       />
     </div>
   );

@@ -38,7 +38,7 @@ const Home = () => {
       <div className="h-[350vh]" />
 
       {/* AboutUs Section — appears after scroll animation completes */}
-      <div className="relative z-20 bg-[#FAF8F5]">
+      <div id="about-us" className="relative z-20 bg-[#FAF8F5]">
         <AboutUs />
       </div>
 

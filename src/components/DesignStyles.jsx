@@ -77,16 +77,24 @@ const STYLES = [
 
 const DesignStyles = () => {
   const [hovered, setHovered] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section
       className="design-styles-section"
-      onMouseLeave={() => setHovered(null)} // Handle reset on container level to prevent flicker
+      onMouseLeave={() => !isMobile && setHovered(null)} // Handle reset on container level to prevent flicker on desktop
       style={{
         width: '100%',
-        height: '100vh',
+        height: isMobile ? '100dvh' : '100vh',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: isMobile ? 'column' : 'row',
         overflow: 'hidden',
         backgroundColor: '#8B0012',
         position: 'relative',
@@ -100,17 +108,23 @@ const DesignStyles = () => {
         return (
           <div
             key={style.name}
-            onMouseEnter={() => setHovered(i)}
-            // Removed individual onMouseLeave to prevent boundary flicker during flex-shift
+            onMouseEnter={() => !isMobile && setHovered(i)}
+            onClick={() => isMobile && setHovered(hovered === i ? null : i)}
             style={{
-              // flex-based width: hovered gets big, others shrink
-              flex: isHovered ? '0 0 38%' : anyHovered ? '0 0 4.8%' : '1 1 0',
-              height: '100%',
+              // Mobile: flexible height, Desktop: flexible width
+              flex: isMobile
+                ? (isHovered ? '0 0 50%' : anyHovered ? '0 0 4.16%' : '1 1 0')
+                : (isHovered ? '0 0 38%' : anyHovered ? '0 0 4.8%' : '1 1 0'),
+              height: isMobile ? 'auto' : '100%',
+              width: isMobile ? '100%' : 'auto',
               position: 'relative',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'flex 0.65s cubic-bezier(0.77, 0, 0.18, 1)',
-              borderRight: i < STYLES.length - 1
+              transition: 'all 0.65s cubic-bezier(0.77, 0, 0.18, 1)',
+              borderRight: (!isMobile && i < STYLES.length - 1)
+                ? '1px solid rgba(255,255,255,0.18)'
+                : 'none',
+              borderBottom: (isMobile && i < STYLES.length - 1)
                 ? '1px solid rgba(255,255,255,0.18)'
                 : 'none',
             }}
@@ -142,25 +156,28 @@ const DesignStyles = () => {
               }}
             />
 
-            {/* Vertical text — hidden when hovered */}
+            {/* Title Text — hidden when hovered */}
             <div
               style={{
                 position: 'absolute',
-                bottom: '3.5rem', // Lowered from 10rem to be closer to bottom
+                top: isMobile ? '50%' : 'auto',
+                bottom: isMobile ? 'auto' : '3.5rem',
                 left: '50%',
-                transform: 'rotate(-90deg)',
-                transformOrigin: 'left center', // Ensures start of text is always at the same 'bottom' line
+                transform: isMobile ? 'translate(-50%, -50%)' : 'rotate(-90deg)',
+                transformOrigin: isMobile ? 'center' : 'left center', // Ensures start of text is always at the same 'bottom' line
                 whiteSpace: 'nowrap',
                 fontFamily: "'Urbanist', sans-serif",
                 fontWeight: 600,
-                fontSize: '0.75rem',
+                fontSize: isMobile ? '0.85rem' : '0.75rem',
                 letterSpacing: '0.22em',
                 textTransform: 'uppercase',
                 color: 'rgba(255,255,255,0.9)',
                 opacity: isHovered ? 0 : 1,
                 transition: 'opacity 0.25s ease',
                 pointerEvents: 'none',
-                marginLeft: '-0.35rem', // Half of font-size to compensate for left origin centering
+                marginLeft: isMobile ? '0' : '-0.35rem', // Half of font-size to compensate for left origin centering
+                width: isMobile ? '90%' : 'auto',
+                textAlign: 'center',
               }}
             >
               {style.name}
@@ -173,18 +190,18 @@ const DesignStyles = () => {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                padding: '2rem 2rem 2.5rem',
+                padding: isMobile ? '1.5rem 1rem' : '2rem 2rem 2.5rem',
                 opacity: isHovered ? 1 : 0,
                 transform: isHovered ? 'translateY(0)' : 'translateY(1.5rem)',
                 transition: 'opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s',
-                pointerEvents: 'none',
+                pointerEvents: isMobile && isHovered ? 'auto' : 'none',
               }}
             >
               {/* Style name horizontal */}
               <p
                 style={{
                   fontFamily: "'Urbanist', sans-serif",
-                  fontSize: '0.65rem',
+                  fontSize: isMobile ? '0.55rem' : '0.65rem',
                   letterSpacing: '0.22em',
                   textTransform: 'uppercase',
                   color: 'rgba(255,255,255,0.6)',
@@ -197,11 +214,11 @@ const DesignStyles = () => {
               <h3
                 style={{
                   fontFamily: "'Lacroom', serif",
-                  fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)',
+                  fontSize: isMobile ? 'clamp(1.4rem, 6vw, 1.8rem)' : 'clamp(1.6rem, 2.5vw, 2.4rem)',
                   fontWeight: 400,
                   color: '#fff',
                   lineHeight: 1.1,
-                  marginBottom: '0.6rem',
+                  marginBottom: isMobile ? '0.3rem' : '0.6rem',
                 }}
               >
                 {style.name}
@@ -209,7 +226,7 @@ const DesignStyles = () => {
               <p
                 style={{
                   fontFamily: "'Urbanist', sans-serif",
-                  fontSize: '0.82rem',
+                  fontSize: isMobile ? '0.75rem' : '0.82rem',
                   color: 'rgba(255,255,255,0.65)',
                   fontWeight: 300,
                   letterSpacing: '0.04em',
@@ -224,9 +241,9 @@ const DesignStyles = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  marginTop: '1.2rem',
+                  marginTop: isMobile ? '0.8rem' : '1.2rem',
                   fontFamily: "'Urbanist', sans-serif",
-                  fontSize: '0.7rem',
+                  fontSize: isMobile ? '0.65rem' : '0.7rem',
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
                   color: 'rgba(255,255,255,0.75)',

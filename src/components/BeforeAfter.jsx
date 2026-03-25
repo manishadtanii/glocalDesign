@@ -32,22 +32,44 @@ const BeforeAfter = ({
 
     // Small delay to allow ScrollTrigger to measure layout after paint
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => '+=' + section.offsetWidth,
-          scrub: 1,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-        defaults: { ease: 'none' },
+      let mm = gsap.matchMedia();
+
+      // Desktop: Pinned animation
+      mm.add("(min-width: 768px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: () => '+=' + section.offsetWidth,
+            scrub: 1,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+          defaults: { ease: 'none' },
+        });
+
+        tl.to(afterDiv, { xPercent: 0 })
+          .to(afterImg, { xPercent: 0 }, 0);
       });
 
-      tl.to(afterDiv, { xPercent: 0 })
-        .to(afterImg, { xPercent: 0 }, 0);
+      // Mobile: Unpinned, scrolly animation (no gap)
+      mm.add("(max-width: 767px)", () => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',   // starts when image enters screen 
+            end: 'bottom 20%',  // finishes before it leaves
+            scrub: 1,
+            pin: false,         // NO GAP!
+          },
+          defaults: { ease: 'none' },
+        });
+
+        tl.to(afterDiv, { xPercent: 0 })
+          .to(afterImg, { xPercent: 0 }, 0);
+      });
     }, section);
 
     // Refresh after a tick so measurements are correct
