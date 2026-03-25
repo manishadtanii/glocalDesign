@@ -39,8 +39,24 @@ const HeroHeading = () => {
         background: 'transparent'
       }}
     >
+      {/* Bottom Right Button (Decorative) */}
+      <div 
+        className="absolute bottom-[9vh] right-[4vw] md:right-[5vw]"
+        style={{ pointerEvents: 'auto', zIndex: 50 }}
+      >
+        <button 
+          onClick={(e) => e.preventDefault()}
+          className="group w-10 h-10 md:w-12 md:h-12 border border-[#c4c4c4] rounded-full flex items-center justify-center "
+          aria-label="Decorative downward arrow"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#323232" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </button>
+      </div>
+
       {/* Main Heading Group */}
-      <div className="w-full flex flex-col items-center pointer-events-none">
+      <div className="w-full flex flex-col items-center pointer-events-none mt-4">
         <h1
           style={{
             fontFamily: "'Lacroom', serif",

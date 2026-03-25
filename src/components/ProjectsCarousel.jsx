@@ -280,6 +280,45 @@ const ProjectsCarousel = ({ subtitle }) => {
           </span>
           {splitLetters(" and brought to life with thoughtful detail.")}
         </p>
+
+        {/* ── View Projects Button ── */}
+        <a
+          href="https://glocaldesign.in/projects/"
+          className="view-projects-btn"
+          style={{
+            marginTop: '2.5rem',
+            padding: '0.85rem 2.6rem',
+            backgroundColor: '#B2000A',
+            color: '#FFFFFF',
+            borderRadius: '50px',
+            border: 'none',
+            fontFamily: "'Urbanist', sans-serif",
+            fontSize: '0.9rem',
+            fontWeight: 600,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: '0 10px 30px rgba(178, 0, 10, 0.25)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            willChange: 'transform, box-shadow',
+            textDecoration: 'none',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'translateY(-3px)';
+            e.currentTarget.style.boxShadow = '0 15px 35px rgba(178, 0, 10, 0.35)';
+            e.currentTarget.style.backgroundColor = '#C7000B';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 10px 30px rgba(178, 0, 10, 0.25)';
+            e.currentTarget.style.backgroundColor = '#B2000A';
+          }}
+        >
+          View Projects
+        </a>
       </div>
 
       {/* ── 3D Stage ── */}

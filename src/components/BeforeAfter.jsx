@@ -40,7 +40,7 @@ const BeforeAfter = ({
           scrollTrigger: {
             trigger: section,
             start: 'top top',
-            end: () => '+=' + section.offsetWidth,
+            end: () => '+=' + (section.offsetWidth * 0.5), // Reduced scroll duration by half
             scrub: 1,
             pin: true,
             pinSpacing: true,

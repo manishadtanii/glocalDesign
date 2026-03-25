@@ -48,16 +48,15 @@ const Footer = () => {
                 <ul className="list-none p-0 m-0 flex flex-col gap-[0.35rem] font-['Urbanist'] text-[0.85rem] text-[#555] font-normal tracking-[0.02em]">
                    <li>Glocal Design</li>
                    <li className="leading-relaxed">B-73, Head Field Solutions,<br/>Sector-57, Noida</li>
-                   <li>+91 91661 97371</li>
+                   <li>+91 8860870874</li>
                    <li className="pt-1">Info@Glocaldesign.Com</li>
                 </ul>
               </div>
 
               {/* Social Icons */}
               <div className="flex gap-3 pb-[0.15rem] mt-2 md:mt-0">
-                <SocialIcon type="linkedin" />
-                <SocialIcon type="instagram" />
-                <SocialIcon type="youtube" />
+                <SocialIcon type="instagram" link="https://www.instagram.com/glocal.design/" />
+                <SocialIcon type="youtube" link="https://www.youtube.com/@Glocal.Design" />
               </div>
            </div>
 
@@ -85,17 +84,9 @@ const Footer = () => {
 };
 
 // ── Social Icon SVG Component ──
-const SocialIcon = ({ type }) => {
+const SocialIcon = ({ type, link }) => {
   const getIcon = () => {
     switch (type) {
-      case 'linkedin':
-        return (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        );
       case 'instagram':
         return (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -117,11 +108,14 @@ const SocialIcon = ({ type }) => {
   };
 
   return (
-    <div
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
       className="flex items-center justify-center w-7 h-7 bg-[#b2000a] text-white rounded cursor-pointer transition-transform duration-200 hover:-translate-y-1"
     >
       {getIcon()}
-    </div>
+    </a>
   );
 };
 
